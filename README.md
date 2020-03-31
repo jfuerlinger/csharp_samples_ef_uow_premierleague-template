@@ -29,7 +29,7 @@ Es sind die 379 Spieldaten von 20 Teams aus der Datei `Premierleague.csv` zu imp
 
 Sie können davon ausgehen, dass jedes Team zumindest einmal zu Hause gespielt hat!
 
-![Logging](./images/01_logging.png)
+![Logging](./images/01_output.png)
 
 ## Persistence
 
