@@ -75,7 +75,7 @@ Zusätzlich zum Import der Daten werden in der `ImportConsole` noch folgende Sta
     $"{teamWithMostGoals.Team.Name}: {teamWithMostGoals.Goals} Tore");
   ```
 
-* Verwenden Sie zur Ausgabe von Tabellen in der Konsole die Klasse `ConsoleTable`:
+* Verwenden Sie zur Ausgabe von Tabellen in der Konsole die Klasse `ConsoleTable` ([Nuget Paket](https://www.nuget.org/packages/ConsoleTables/)):
 
   ```csharp
   ConsoleTable
