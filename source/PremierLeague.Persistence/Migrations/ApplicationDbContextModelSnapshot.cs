@@ -10,74 +10,89 @@ using System;
 
 namespace PremierLeague.Persistence.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+  [DbContext(typeof(ApplicationDbContext))]
+  partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+  {
+    protected override void BuildModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+      modelBuilder
+          .HasAnnotation("ProductVersion", "3.1.2")
+          .HasAnnotation("Relational:MaxIdentifierLength", 128)
+          .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PremierLeague.Core.Entities.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("PremierLeague.Core.Entities.Game", b =>
+      {
+        b.Property<int>("Id")
+            .ValueGeneratedOnAdd()
+            .HasColumnType("int")
+            .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("GuestGoals");
+        b.Property<int>("GuestGoals")
+            .HasColumnType("int");
 
-                    b.Property<int>("GuestTeamId");
+        b.Property<int>("GuestTeamId")
+            .HasColumnType("int");
 
-                    b.Property<int>("HomeGoals");
+        b.Property<int>("HomeGoals")
+            .HasColumnType("int");
 
-                    b.Property<int>("HomeTeamId");
+        b.Property<int>("HomeTeamId")
+            .HasColumnType("int");
 
-                    b.Property<int>("Round");
+        b.Property<int>("Round")
+            .HasColumnType("int");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+        b.Property<byte[]>("RowVersion")
+            .IsConcurrencyToken()
+            .ValueGeneratedOnAddOrUpdate()
+            .HasColumnType("rowversion");
 
-                    b.HasKey("Id");
+        b.HasKey("Id");
 
-                    b.HasIndex("GuestTeamId");
+        b.HasIndex("GuestTeamId");
 
-                    b.HasIndex("HomeTeamId");
+        b.HasIndex("HomeTeamId");
 
-                    b.ToTable("Games");
-                });
+        b.ToTable("Games");
+      });
 
-            modelBuilder.Entity("PremierLeague.Core.Entities.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("PremierLeague.Core.Entities.Team", b =>
+      {
+        b.Property<int>("Id")
+            .ValueGeneratedOnAdd()
+            .HasColumnType("int")
+            .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+        b.Property<string>("Name")
+            .IsRequired()
+            .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+        b.Property<byte[]>("RowVersion")
+            .IsConcurrencyToken()
+            .ValueGeneratedOnAddOrUpdate()
+            .HasColumnType("rowversion");
 
-                    b.HasKey("Id");
+        b.HasKey("Id");
 
-                    b.ToTable("Teams");
-                });
+        b.ToTable("Teams");
+      });
 
-            modelBuilder.Entity("PremierLeague.Core.Entities.Game", b =>
-                {
-                    b.HasOne("PremierLeague.Core.Entities.Team", "GuestTeam")
-                        .WithMany("AwayGames")
-                        .HasForeignKey("GuestTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity("PremierLeague.Core.Entities.Game", b =>
+      {
+        b.HasOne("PremierLeague.Core.Entities.Team", "GuestTeam")
+            .WithMany("AwayGames")
+            .HasForeignKey("GuestTeamId")
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
-                    b.HasOne("PremierLeague.Core.Entities.Team", "HomeTeam")
-                        .WithMany("HomeGames")
-                        .HasForeignKey("HomeTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+        b.HasOne("PremierLeague.Core.Entities.Team", "HomeTeam")
+            .WithMany("HomeGames")
+            .HasForeignKey("HomeTeamId")
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+      });
 #pragma warning restore 612, 618
-        }
     }
+  }
 }
